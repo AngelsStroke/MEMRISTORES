@@ -1,2 +1,2 @@
 # MEMRISTORES
-Memory-Inspired Neuroimaging Research System Open Science · Neuroimaging · Artificial Intelligence · Clinical Research
+Open research initiative integrating Neuroimaging, Artificial Intelligence, Clinical Medicine and Explainable AI to advance neuroscience through open science.
