@@ -1,0 +1,78 @@
+﻿variable,domain,data_type,allowed_values,operational_definition,required_sequence,coding_rule,source_standard,priority
+patient_id,identification,string,ACV-0001…,Identificador pseudonimizado estable por paciente.,clinical registry,Asignación ascendente. No reutilizar códigos.,MEMRISTORES protocol,Critical
+study_id,identification,string,ACV-0001-RM01…,Identificador único por estudio de imagen.,clinical registry,Mantener patient_id y numerar estudios en orden cronológico.,MEMRISTORES protocol,Critical
+cohort_year,clinical,integer,2022…,Año de inclusión en la cohorte.,clinical registry,"Usar únicamente el año, no la fecha completa.",MEMRISTORES governance,Core
+index_event_type,clinical,categorical,ischemic_stroke|TIA|ICH|unknown,Tipo de evento cerebrovascular índice.,clinical registry,No inferir si no consta.,MEMRISTORES protocol,Core
+age_at_event,clinical,integer,0-120|NA,Edad en años al momento del evento índice.,clinical registry,No publicar fecha de nacimiento.,MEMRISTORES governance,Core
+sex,clinical,categorical,F|M|Other_NR|NA,Sexo registrado para análisis descriptivo.,clinical registry,Usar únicamente categorías previamente definidas.,MEMRISTORES protocol,Core
+days_event_to_imaging,temporal,integer,0…|NA,Número de días entre el evento índice y la imagen.,clinical registry,Preferir diferencia calculada; evitar fechas exactas en datos públicos.,MEMRISTORES governance,Critical
+modality,acquisition,categorical,MRI|CT|CTA|MRA|Other,Modalidad principal del estudio.,study metadata,No inferir.,MEMRISTORES protocol,Critical
+field_strength_T,acquisition,numeric,1.5|3.0|Other|NA,Intensidad de campo de la resonancia.,study metadata,NA cuando no conste.,MEMRISTORES protocol,Optional
+image_quality,quality,categorical,adequate|limited|non_evaluable|NA,Calidad global para lectura de biomarcadores.,all available sequences,Registrar la causa de limitación en notes.,MEMRISTORES QC,Critical
+sequence_T1,sequence_availability,binary_missing,0|1|NA|NE|NS,Disponibilidad de secuencia T1.,study metadata,1 presente; 0 evaluada y ausente; NS no realizada/no disponible.,MEMRISTORES protocol,Core
+sequence_T2,sequence_availability,binary_missing,0|1|NA|NE|NS,Disponibilidad de secuencia T2.,study metadata,Aplicar leyenda estandarizada.,MEMRISTORES protocol,Core
+sequence_FLAIR,sequence_availability,binary_missing,0|1|NA|NE|NS,Disponibilidad de FLAIR.,study metadata,Aplicar leyenda estandarizada.,MEMRISTORES protocol,Critical
+sequence_DWI,sequence_availability,binary_missing,0|1|NA|NE|NS,Disponibilidad de DWI.,study metadata,Aplicar leyenda estandarizada.,MEMRISTORES protocol,Critical
+sequence_ADC,sequence_availability,binary_missing,0|1|NA|NE|NS,Disponibilidad de mapa ADC.,study metadata,Aplicar leyenda estandarizada.,MEMRISTORES protocol,Critical
+sequence_GRE_SWI,sequence_availability,binary_missing,0|1|NA|NE|NS,Disponibilidad de T2*-GRE o SWI.,study metadata,"Sin esta secuencia, microbleeds y siderosis deben registrarse como NS.",MARS/BOMBS,Critical
+sequence_MRA_CTA,sequence_availability,binary_missing,0|1|NA|NE|NS,Disponibilidad de angiografía por RM o TC.,study metadata,Aplicar leyenda estandarizada.,MEMRISTORES protocol,Core
+acute_infarct_present,index_lesion,binary_missing,0|1|NA|NE|NS,Lesión isquémica aguda o reciente compatible con el evento índice.,DWI+ADC±FLAIR,No usar 0 si faltan DWI/ADC y el informe no permite excluirla.,STRIVE-2,Critical
+acute_infarct_count,index_lesion,integer,0…|NA|NE,Número de lesiones agudas separadas.,DWI+ADC,Contar focos anatómicamente separados.,MEMRISTORES protocol,Core
+acute_infarct_laterality,index_lesion,categorical,right|left|bilateral|midline|NA|NE,Lateralidad de la lesión índice.,DWI+ADC±FLAIR,Usar bilateral cuando existan lesiones en ambos hemisferios.,MEMRISTORES protocol,Core
+acute_infarct_territory,index_lesion,categorical_multivalue,ACA|MCA|PCA|vertebrobasilar|borderzone|perforator|other|NA|NE,Territorio vascular dominante.,DWI+ADC±MRA/CTA,Separar múltiples territorios con |.,MEMRISTORES protocol,Critical
+acute_infarct_location_detail,index_lesion,text,controlled free text,Localización anatómica detallada.,DWI+ADC±FLAIR,"Registrar estructura, lado y profundidad.",MEMRISTORES protocol,Critical
+acute_infarct_max_diameter_mm,index_lesion,numeric,mm|NA|NE,Diámetro máximo de la lesión aguda.,DWI or FLAIR,Medir en el plano de mayor extensión.,MEMRISTORES protocol,Optional
+acute_infarct_volume_ml,index_lesion,numeric,mL|NA|NE,Volumen estimado de la lesión aguda.,DWI or FLAIR,Registrar método de segmentación en notes.,MEMRISTORES protocol,Optional
+dwi_positive,index_lesion,binary_missing,0|1|NA|NE|NS,Hiperintensidad compatible con restricción en DWI.,DWI,Evaluar junto con ADC.,MEMRISTORES protocol,Core
+adc_restriction,index_lesion,binary_missing,0|1|NA|NE|NS,Disminución del ADC correspondiente.,ADC,No concluir restricción verdadera con DWI aislada.,MEMRISTORES protocol,Core
+flair_positive,index_lesion,binary_missing,0|1|NA|NE|NS,Hiperintensidad FLAIR correspondiente a la lesión índice.,FLAIR,Aplicar leyenda estandarizada.,MEMRISTORES protocol,Core
+dwi_flair_mismatch,index_lesion,binary_missing,0|1|NA|NE|NS,DWI positiva sin hiperintensidad FLAIR correspondiente.,DWI+FLAIR,Solo evaluable si ambas secuencias existen y son interpretables.,MEMRISTORES protocol,Optional
+hemorrhagic_transformation_present,complication,binary_missing,0|1|NA|NE|NS,Transformación hemorrágica de una lesión isquémica.,CT or GRE/SWI,No confundir con hemorragia remota.,ECASS,Core
+hemorrhagic_transformation_ECASS,complication,categorical,HI1|HI2|PH1|PH2|NA|NE,Clasificación radiológica ECASS.,CT or GRE/SWI,Codificar únicamente cuando existan elementos suficientes.,ECASS,Core
+lacune_present,CSVD,binary_missing,0|1|NA|NE|NS,Cavidad subcortical compatible con infarto o hemorragia antigua de pequeño vaso.,T1+T2+FLAIR,Diferenciar de espacios perivasculares.,STRIVE-2,Critical
+lacune_count,CSVD,integer,0…|NA|NE,Número total de lacunas.,T1+T2+FLAIR,Contar cavidades separadas.,STRIVE-2,Core
+lacune_locations,CSVD,categorical_multivalue,basal_ganglia|thalamus|internal_capsule|corona_radiata|brainstem|cerebellum|other,Distribución anatómica de lacunas.,T1+T2+FLAIR,Separar localizaciones con |.,STRIVE-2,Core
+recent_small_subcortical_infarct,CSVD,binary_missing,0|1|NA|NE|NS,Infarto reciente pequeño en territorio de arteriola perforante.,DWI+ADC±FLAIR,Registrar independientemente de lacuna antigua.,STRIVE-2,Core
+WMH_present,WMH,binary_missing,0|1|NA|NE|NS,Hiperintensidades de sustancia blanca de probable origen vascular.,FLAIR or T2,Excluir edema y otras causas cuando sea posible.,STRIVE-2,Critical
+fazekas_periventricular,WMH,ordinal,0|1|2|3|NA|NE|NS,Carga visual periventricular de WMH.,FLAIR,Aplicar criterios Fazekas definidos en la hoja Scales.,Fazekas,Critical
+fazekas_deep,WMH,ordinal,0|1|2|3|NA|NE|NS,Carga visual profunda de WMH.,FLAIR,Aplicar criterios Fazekas definidos en la hoja Scales.,Fazekas,Critical
+microbleed_present,microbleeds,binary_missing,0|1|NA|NE|NS,Microhemorragias cerebrales crónicas.,GRE/SWI,"Sin GRE/SWI, registrar NS.",MARS/BOMBS,Critical
+microbleed_total_count,microbleeds,integer,0…|NA|NE|NS,Número total de microbleeds.,GRE/SWI,"Excluir vasos, calcificaciones y artefactos.",MARS/BOMBS,Core
+microbleed_lobar_count,microbleeds,integer,0…|NA|NE|NS,Conteo lobar.,GRE/SWI,Clasificar por topografía MARS.,MARS,Core
+microbleed_deep_count,microbleeds,integer,0…|NA|NE|NS,Conteo profundo.,GRE/SWI,Clasificar por topografía MARS.,MARS,Core
+microbleed_infratentorial_count,microbleeds,integer,0…|NA|NE|NS,Conteo infratentorial.,GRE/SWI,Clasificar por topografía MARS.,MARS,Core
+microbleed_distribution,microbleeds,categorical,none|strictly_lobar|deep|infratentorial|mixed|NA|NE|NS,Distribución anatómica global de microbleeds.,GRE/SWI,Derivar del conteo por compartimentos.,MARS,Critical
+cortical_superficial_siderosis,hemorrhagic_markers,binary_missing,0|1|NA|NE|NS,Depósito lineal de hemosiderina en surcos corticales.,GRE/SWI,Diferenciar de vasos y artefactos.,STRIVE-2,Core
+PVS_basal_ganglia_grade,PVS,ordinal,0|1|2|3|4|NA|NE|NS,Carga visual de espacios perivasculares en ganglios basales.,T2,Usar la misma escala y corte de referencia en toda la cohorte.,STRIVE-2,Core
+PVS_centrum_semiovale_grade,PVS,ordinal,0|1|2|3|4|NA|NE|NS,Carga visual de espacios perivasculares en centrum semiovale.,T2,Usar la misma escala y corte de referencia en toda la cohorte.,STRIVE-2,Core
+brain_atrophy_present,atrophy,binary_missing,0|1|NA|NE|NS,Atrofia cerebral visualmente apreciable.,T1 or FLAIR or CT,Registrar escala específica cuando sea posible.,MEMRISTORES protocol,Core
+global_cortical_atrophy_grade,atrophy,ordinal,0|1|2|3|NA|NE|NS,Grado visual global de atrofia cortical.,T1 or FLAIR or CT,Aplicar una escala consistente.,GCA visual scale,Optional
+medial_temporal_atrophy_right,atrophy,ordinal,0|1|2|3|4|NA|NE|NS,Atrofia temporal medial derecha.,coronal T1,Aplicar escala MTA de forma consistente.,Scheltens MTA,Optional
+medial_temporal_atrophy_left,atrophy,ordinal,0|1|2|3|4|NA|NE|NS,Atrofia temporal medial izquierda.,coronal T1,Aplicar escala MTA de forma consistente.,Scheltens MTA,Optional
+strategic_infarct_present,chronic_lesions,binary_missing,0|1|NA|NE|NS,Infarto en localización potencialmente estratégica para cognición o conducta.,T1+T2+FLAIR±DWI,Registrar localización; no atribuir causalidad automática.,MEMRISTORES protocol,Core
+strategic_infarct_location,chronic_lesions,text,controlled free text,Localización anatómica del infarto estratégico.,T1+T2+FLAIR±DWI,"Ejemplos: tálamo, hipocampo, giro angular, caudado, territorio ACA.",MEMRISTORES protocol,Core
+old_cortical_infarct_present,chronic_lesions,binary_missing,0|1|NA|NE|NS,Infarto cortical crónico.,T1+T2+FLAIR or CT,Registrar encefalomalacia/gliosis asociada.,MEMRISTORES protocol,Core
+old_subcortical_infarct_present,chronic_lesions,binary_missing,0|1|NA|NE|NS,Infarto subcortical crónico.,T1+T2+FLAIR or CT,Diferenciar de lacunas.,MEMRISTORES protocol,Core
+old_infratentorial_infarct_present,chronic_lesions,binary_missing,0|1|NA|NE|NS,Infarto crónico de tronco o cerebelo.,T1+T2+FLAIR or CT,Registrar localización.,MEMRISTORES protocol,Core
+encephalomalacia_gliosis,chronic_lesions,binary_missing,0|1|NA|NE|NS,Encefalomalacia o gliosis residual.,T1+T2+FLAIR or CT,Registrar distribución en notes.,MEMRISTORES protocol,Core
+large_artery_stenosis_present,vasculature,binary_missing,0|1|NA|NE|NS,Estenosis arterial intracraneal o extracraneal relevante.,CTA or MRA,No concluir ausencia sin estudio vascular.,MEMRISTORES protocol,Core
+stenosis_vessel,vasculature,categorical_multivalue,ICA|MCA|ACA|PCA|VA|BA|other|NA|NE|NS,Vaso o vasos con estenosis.,CTA or MRA,Separar múltiples vasos con |.,MEMRISTORES protocol,Core
+stenosis_percent_category,vasculature,categorical,none|mild|moderate|severe|occlusion|NA|NE|NS,Categoría de severidad de estenosis.,CTA or MRA,Documentar método si se dispone.,MEMRISTORES protocol,Core
+intracranial_atherosclerosis,vasculature,binary_missing,0|1|NA|NE|NS,Aterosclerosis intracraneal.,CTA or MRA,No inferir con imagen parenquimatosa aislada.,MEMRISTORES protocol,Core
+dolichoectasia,vasculature,binary_missing,0|1|NA|NE|NS,Dolicoectasia arterial.,CTA or MRA,Registrar vaso y método en notes.,MEMRISTORES protocol,Optional
+aneurysm_present,vasculature,binary_missing,0|1|NA|NE|NS,Aneurisma intracraneal.,CTA or MRA,Registrar localización y tamaño en notes.,MEMRISTORES protocol,Optional
+vascular_malformation_present,vasculature,binary_missing,0|1|NA|NE|NS,Malformación vascular intracraneal.,CTA or MRA±contrast MRI,Registrar tipo en notes.,MEMRISTORES protocol,Optional
+total_CSVD_score_0_4,derived_score,integer,0|1|2|3|4|NA,Puntuación total pragmática de enfermedad cerebral de pequeños vasos.,multisequence MRI,"1 punto por lacuna, microbleed, WMH moderada-grave y PVS-BG moderados-graves.",Staals et al.,Critical
+probable_CAA_Boston2_category,derived_pattern,categorical,not_applicable|not_met|possible|probable|NA,Categoría exploratoria según criterios Boston 2.0.,GRE/SWI plus clinical data,No calcular con imagen aislada incompleta.,Boston criteria v2.0,Exploratory
+vascular_parkinsonism_pattern,derived_pattern,categorical,none|compatible|indeterminate|NA,Patrón radiológico compatible con parkinsonismo vascular.,MRI,No equivale a diagnóstico clínico.,MEMRISTORES exploratory,Exploratory
+other_incidental_findings,other,text,free text,Hallazgos incidentales no cubiertos por otras variables.,all available sequences,Evitar datos identificables.,MEMRISTORES protocol,Optional
+radiology_text_deidentified,traceability,text,free text,Extracto desidentificado del informe radiológico.,radiology report,"Eliminar nombres, IDs, fechas completas, direcciones y teléfonos.",MEMRISTORES governance,Critical
+coder_summary,traceability,text,free text,Resumen estructurado del codificador.,all available sources,"Separar hallazgos, negativos evaluables y limitaciones.",MEMRISTORES protocol,Critical
+coding_confidence,quality,categorical,high|moderate|low,Confianza global de la codificación.,all available sources,Alta: hallazgos claros y secuencias adecuadas.,MEMRISTORES QC,Critical
+primary_reader,quality,string,initials_or_role,Lector primario.,coding log,No usar nombre completo en repositorios públicos.,MEMRISTORES QC,Core
+second_reader,quality,string,initials_or_role|NA,Segundo lector.,coding log,NA si no se realizó doble lectura.,MEMRISTORES QC,Core
+adjudicated,quality,binary_missing,0|1|NA,Indica si una discrepancia fue adjudicada.,coding log,1 solo después de resolución documentada.,MEMRISTORES QC,Core
+dictionary_version,traceability,string,MEMRISTORES-DD-2.0,Versión del diccionario aplicada.,coding log,No modificar retrospectivamente sin registrar migración.,MEMRISTORES protocol,Critical
+coding_date,traceability,date,YYYY-MM-DD,Fecha de codificación.,coding log,"Fecha de trabajo, no fecha clínica.",MEMRISTORES protocol,Core
+source_type,traceability,categorical,report_only|images_only|report_and_images,Fuente usada para codificar.,coding log,No afirmar revisión de imágenes cuando solo se usó el informe.,MEMRISTORES QC,Critical
+notes,traceability,text,free text,Observaciones metodológicas.,all available sources,No incluir información identificable.,MEMRISTORES governance,Core
