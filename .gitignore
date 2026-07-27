@@ -21,3 +21,15 @@ data/local_private/
 
 # Archivos del sistema
 .DS_Store
+# Artículos científicos almacenados externamente
+*.pdf
+
+# Bibliografía local no versionada
+docs/literature/pdfs/
+docs/literature/local_files/
+
+# Datos clínicos o privados
+data/local_private/
+*.dcm
+*.nii
+*.nii.gz
