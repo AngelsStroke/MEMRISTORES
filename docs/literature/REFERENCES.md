@@ -17,3 +17,4 @@ resonancia magnética.**
 - `DIRECT_EVIDENCE.md`: evidencia directamente relacionada con el tema.
 - `METHODOLOGICAL_SUPPORT.md`: artículos de apoyo metodológico o tecnológico.
 - `EXCLUDED_ARTICLES.md`: artículos evaluados y descartados.
+- Ren J, An N, Lin C, et al. DeepPrep: an accelerated, scalable and robust pipeline for neuroimaging preprocessing empowered by deep learning. Nature Methods. 2025;22:473–476. doi:10.1038/s41592-025-02599-1.
