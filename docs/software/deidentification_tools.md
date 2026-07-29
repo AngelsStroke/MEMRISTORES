@@ -37,3 +37,7 @@ restricción de explotación comercial del código original.
 
 ```bash
 pip install mede
+```
+
+### Nombre de registro
+MEDE_Medical_Image_Deidentification
