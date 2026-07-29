@@ -39,7 +39,6 @@ parkinsonismo vascular, Fazekas, lacunas, microhemorragias ni espacios
 perivasculares.
 
 **Decisión:** Conservar como respaldo metodológico.
-## DeepPrep
 
 **Título:** DeepPrep: an accelerated, scalable and robust pipeline for neuroimaging preprocessing empowered by deep learning
 
