@@ -26,3 +26,4 @@ resonancia magnética.**
 ## Referencias registradas
 
 - Ren J, An N, Lin C, et al. DeepPrep: an accelerated, scalable and robust pipeline for neuroimaging preprocessing empowered by deep learning. Nature Methods. 2025;22:473–476. doi:10.1038/s41592-025-02599-1.
+- Manini A, Pantoni L. Genetic Causes of Cerebral Small Vessel Diseases: A Practical Guide for Neurologists. Neurology. 2023;100:766–783. doi:10.1212/WNL.0000000000201720. Clasificación: evidencia directa de contexto.
