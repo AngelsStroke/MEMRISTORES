@@ -97,3 +97,57 @@ corticales y subcorticales.
 - Los resultados requieren control visual experto.
 
 **Decisión:** Conservar como respaldo metodológico.
+
+## Rempe et al., 2025 — Desidentificación de imágenes médicas
+
+**Referencia:**  
+Rempe M, Heine L, Seibold C, Hörst F, Kleesiek J.  
+De-identification of medical imaging data: a comprehensive tool for ensuring patient privacy.  
+European Radiology. 2025;35:7809–7818.  
+doi: 10.1007/s00330-025-11695-x
+
+### Justificación metodológica
+
+Este artículo respalda la fase de desidentificación y gobernanza de datos
+del proyecto MEMRISTORES.
+
+Los autores desarrollaron una herramienta abierta para desidentificar:
+
+- imágenes DICOM de resonancia magnética;
+- tomografía computarizada;
+- archivos NIfTI;
+- Whole Slide Images;
+- datos crudos de RM Siemens Twix;
+- imágenes con texto incrustado.
+
+### Componentes del proceso
+
+La herramienta combina:
+
+- limpieza de metadatos;
+- aplicación de perfiles DICOM;
+- defacing;
+- skull stripping;
+- eliminación de texto incrustado;
+- procesamiento de diferentes formatos de imagen médica.
+
+### Relevancia para MEMRISTORES
+
+En MEMRISTORES, la herramienta puede utilizarse antes de la conversión,
+procesamiento y análisis de imágenes clínicas.
+
+El flujo metodológico recomendado es:
+
+```text
+DICOM original restringido
+→ desidentificación de metadatos
+→ revisión de texto incrustado
+→ defacing cuando exista cobertura facial
+→ control de calidad de privacidad
+→ asignación de identificador SUB-XXX
+→ conversión a NIfTI
+→ análisis de neuroimagen
+```
+
+### Nombre de registro
+Rempe_2025_Deidentification_Medical_Imaging_Data.pdf
